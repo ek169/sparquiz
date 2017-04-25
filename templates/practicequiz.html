@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content%}
+<div class="container">
+<form method="post">
+    <div class="form-group">
+        {% for question in questions %}
+            {% if question.type == 'multiple' %}
+                <div class="form-group">>
+                    <label>{{question.question.capitalize()}}</label>
+                    {% for answer in question.other_answers %}
+                    <div class="form-check">
+                        <label id="multiple-choice" class="form-check-label">
+                            <input name="{{question.key().id()}}" type="radio" value="{{answer}}" class="form-check-input"/>
+                            {{answer.capitalize()}}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% elif question.type == 'check' %}
+                <div class="form-check">
+                    <label class="form-check-label">{{question.question.capitalize()}}</label>
+                    {% for answer in question.other_answers %}
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" name="{{question.key().id()}}" type="checkbox" value="{{answer}}">
+                                {{answer.capitalize()}}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% elif question.type == 'true/false' %}
+                <div class="form-group">
+                    <label class="form-check-label">{{question.question.capitalize()}}</label>
+                    <select class="form-control col-3" name="{{question.key().id()}}" value="{{answer}}">
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                </div>
+
+            {% endif %}
+        <hr>
+        {% endfor %}
+        <div>
+            <input class="btn btn-primary"type="submit" value="Grade Quiz"/>
+        </div>
+    </form>
+</div>
+{% endblock %}

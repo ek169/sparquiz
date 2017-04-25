@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if the_class_sets %}
+    <div class="container-fluid">
+    {% for s in the_class_sets %}
+            <div class="col-md-3 well">
+            <p>
+                <span>{{s.name}}</span>
+                <div>
+                    <span class="description-text"><small class="last-modified-text">Last Modified: {{s.last_updated}}</small><br>{{s.description}}</span>
+                </div>
+            </p>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+<span>There are no sets in this class</span>
+{% endif %}
+{% endblock %}

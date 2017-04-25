@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-group">
+    <form method="post" id="sign-up">
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Username:</label>
+            <div class="col-9">
+                <input class="form-control" type="text" name="username" value="{{username}}"/>
+                <span class="input-error">{{user_error}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Password:</label>
+            <div class="col-9">
+                <input class="form-control" type="password" name="password"/>
+                <span class="input-error">{{pw_error}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Verify Password:</label>
+            <div class="col-9">
+                <input class="form-control" type="password" name="verify"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Email:</label>
+            <div class="col-9">
+                <input class="form-control" type="text" name="email" value="{{email}}"/>
+            </div>
+        </div>
+        <div>
+            <input class="btn btn-primary" type="submit" value="Submit"/>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sparquiz</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.js"></script>
+    <script src="/js/base.js"></script>
+    <script src="/js/form.js"></script>
+    <script src="/js/signup.js"></script>
+    <script src="/js/setview.js"></script>
+    <script src="/js/addClass.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-faded navbar-fixed-top" id="nav-override">
+    <div class="navbar-header">
+        <a href="/" class="navbar-brand">Sparquiz</a>
+    </div>
+    <div class="container-fluid">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                {% if current_user %}
+                <li role="presentation" class="{{class_active}}"><a href="/{{current_user.username}}">My Classes</a></li>
+                <li role="presentation"><a href="/logout"> Logout</a></li>
+                {% else %}
+                <li role="presentation" class="{{login_active}}"><a href="/login"> Login</a></li>
+                <li role="presentation" class="{{sign_up_active}}"><a href="/signup"> Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        {% if current_user %}
+        <div class="sidebar col-xs-2">
+            <ul class="nav nav-stacked affix">
+                <li><a href="/">Recent Activity</a></li>
+                <li class="hover"><a href="/{{current_user.username}}">Classes <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <ul>
+                        {% if not class_obj %}
+                        <li><a href="/{{current_user.username}}/create-class">Create Class</a></li>
+                        {% elif class_obj %}
+                            {% if current_id in class_obj.other_users %}
+                                <li class="in-class"><a href="/{{current_user.username}}/{{class_obj.name}}">{{class_obj.name}}</a>
+                                    <ul>
+                                        <li class="in-class"><a href="/{{current_user.username}}/{{class_obj.name}}/create-set">Create Set</a></li>
+                                    </ul>
+                                </li>
+                    </ul>
+                </li>
+                            {% if set_obj %}
+                            <li class="hover"><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}">{{set_obj.name}} <span class="glyphicon glyphicon-chevron-down"></span></a>
+                                <ul>
+                                    <li><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/new-question/">New Question</a></li>
+                                    <li><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/practice/">Practice Set</a></li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                        {% else %}
+                            {% if have_requested %}
+                                <li>Request Already Sent</li>
+                            {% else %}
+                                <li><button class="btn"><a href="/{{user_creator.username}}/{{class_obj.name}}/add/">Add Class</a></button></li>
+                            {% endif %}
+                        {% endif %}
+                        {% if user_requests %}
+                            <li><a href="#">User Requests</a>
+                                <ul>
+                                    {% for u in user_requests %}
+                                        <li><a href="/{{u.username}}">{{u.username}} </a>
+                                        <form id="addUser" method="post" action="/{{current_user.username}}/{{class_obj.name}}/add/">
+                                            <input type="hidden" value="{{u.key().id()}}" name="uid"/>
+                                            <button class="btn btn-default btn-circle" type="submit" value="Allow" name="answer"><span class="glyphicon glyphicon-ok"></span></button>
+                                            <button class="btn btn-default btn-circle" type="submit" value="Deny" name="answer"><span class="glyphicon glyphicon-remove"></span></button>
+                                        </form>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+            </ul>
+                        {% endif %}
+                    {% endif %}
+
+        </div>
+        {% else %}
+        <div id="not-logged" class="sidebar col-xs-2">
+            <div class="well">
+                <h4 class="h4">Find Your Classes</h4>
+                <span class="glyphicon glyphicon-arrow-down"></span>
+                <ul class="nav">
+                    <li><a href="/signup"><button class="sign-up btn btn-primary">Sign Up</button></a></li>
+                </ul>
+                <div class="examples">
+                    <div>
+                        <span class="glyphicon glyphicon-plus"></span><span> Practice With Friends</span>
+                    </div>
+                    <div>
+                        <span class="glyphicon glyphicon-plus"></span><span> Track Your Progress</span>
+                    </div>
+                    <div>
+                    <span class="glyphicon glyphicon-plus"></span><span> Study Smarter</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="col-md-9">
+            <h1 class="page-header"><a href="#">{{page_title}}</a></h1>
+            {% block content %}
+
+            {% endblock %}
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
+
+

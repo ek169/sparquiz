@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if questions %}
+    <div class="container-fluid">
+    {% for question in questions %}
+        <div id="question-border" class="col-md-4 well">
+            <table class="table borderless">
+                <tr>
+                    <td>
+                        <span class="question-view-format">{{question.question}}</span>
+                    </td>
+                    <td>
+                        <span><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/{{question.key().id()}}">Edit </a></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+<span>You don't have any questions</span>
+{% endif %}
+{% endblock %}

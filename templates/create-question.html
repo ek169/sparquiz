@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-group"></div>
+    <form method="post" id="create-question">
+        <div class="left well">
+            <label class="col-2 col-form-label">Question Type</label>
+            <select class="form-control" id="question-type" selected="{{type}}" name="questionType">
+                    <option value="multiple">Multiple Choice</option>
+                    <option value="check">Check Box</option>
+                    <option value="true/false">True/False</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="left well">
+                <label class="col-2 col-form-label">Question</label>
+                <input class="form-control" type="text" name="question" value="{{question}}"/>
+            </div>
+            <div class="clear">&nbsp;</div>
+            <div class="left well form-group">
+                <label id="answer-label" class="col-2 col-form-label">Correct Answer</label>
+                <div id="correct-answer" class="validate-group form-group">
+                    <p>
+                        <label id="first-correct"><input class="form-control" type="text" name="correctAnswer1" value="{{correct_answer}}"/></label>
+                    </p>
+                </div>
+                <div id="correct-answer-error">
+                </div>
+            </div>
+            <div id="other-answers-div" class="left well form-group">
+                <label class="col-2 col-form-label">Other Answers</label>
+                <div id="other-answers" class="validate-group form-group">
+                    <p>
+                    <label><input class="form-control" type="text" name="otherAnswers1"/></label>
+                    <a href="#"><span id="add-other-answers" class="add-input glyphicon glyphicon-plus"></span></a>
+                    </p>
+                </div>
+                <p id="other-answer-error">
+                </p>
+            </div>
+        <div class="clear">&nbsp;</div>
+        <div class="clear">
+            <input type="submit" class="btn btn-primary" value="Add Question">
+        </div>
+
+
+    </form>
+</div>
+{% endblock %}

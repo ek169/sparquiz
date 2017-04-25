@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    {% for correct, question, answer in question_results %}
+    <div class="row">
+        <div class="row">
+            <label>- {{question.question.capitalize()}} -</label><span class="{{correct}}"></span>
+        </div>
+        {% if question.type == 'multiple' %}
+            <div class="row">
+                {% for a in question.other_answers %}
+                    <div>
+                    {% if a == answer %}
+                        {% if answer == question.correct_answer %}
+                            <span class="isCorrect">{{a}} <span class="isCorrect glyphicon glyphicon-ok"></span></span>
+                        {% else %}
+                            <span class="isNotCorrect">{{a}} <span class="isNotCorrect glyphicon glyphicon-remove"></span></span>
+                        {% endif %}
+                    {% else %}
+                        <span>{{a}}</span>
+                    {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row correct-answer-results">
+                <span>Correct Answers: {{question.correct_answer}}</span>
+            </div>
+        {% elif question.type == 'check' %}
+            <div class="row">
+                {% for a in question.other_answers %}
+                <div>
+                    {% if a in answer %}
+                        {% if a in question.multiple_correct_answers %}
+                            <span class="isCorrect">{{a}} <span class="isCorrect glyphicon glyphicon-ok"></span></span>
+                        {% else %}
+                            <span class="isNotCorrect">{{a}} <span class="isNotCorrect glyphicon glyphicon-remove"></span></span>
+                        {% endif %}
+                    {% else %}
+                        <span>{{a}}</span>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row correct-answer-results">
+                <span>Correct Answers: </span>
+                {% for c in question.multiple_correct_answers %}
+                    <span>{{c}}</span>
+                {% endfor %}
+            </div>
+        {% elif question.type == 'true/false' %}
+            <div class="row">
+                {% for a in ['true','false'] %}
+                    <div>
+                    {% if a == answer %}
+                        {% if answer == question.correct_answer %}
+                            <span class="isCorrect">{{a}} <span class="isCorrect glyphicon glyphicon-ok"></span></span>
+                        {% else %}
+                            <span class="isNotCorrect">{{a}} <span class="isNotCorrect glyphicon glyphicon-remove"></span></span>
+                        {% endif %}
+                    {% else %}
+                        <span>{{a}}</span>
+                    {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row correct-answer-results">
+                <span>Correct Answer: </span>
+                <span>{{question.correct_answer.capitalize()}}</span>
+            </div>
+        {% endif %}
+    </div>
+    <hr>
+    {% endfor %}
+    <div class="row">
+        <h4>Your Score: {{attempt_score}}</h4>
+    </div>
+</div>
+{% endblock %}

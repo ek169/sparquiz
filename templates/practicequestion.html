@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content%}
+<div class="container">
+    <form method="post">
+        <div class="form-group">
+            {% if question.type == 'multiple' %}
+                <div>
+                    <label>{{question.question.capitalize()}}</label>
+                    {% for answer in question.other_answers %}
+                <br>
+                <label id="multiple-choice" class="custom-control custom-radio">
+                    <input name="{{question.key().id()}}" type="radio" value="{{answer}}" class="custom-control-input"/>
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">{{answer.capitalize()}}</span>
+                </label>
+                {% endfor %}
+            </div>
+            <br>
+        {% elif question.type == 'check' %}
+            <div>
+            <label>{{question.question.capitalize()}}</label>
+            {% for answer in question.other_answers %}
+            <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                    <input class="form-check-input" name="{{question.key().id()}}" type="checkbox" value="{{answer}}">
+                    {{answer.capitalize()}}
+                </label>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+        {% elif question.type == 'true/false' %}
+        <div>
+            <label>{{question.question.capitalize()}}</label>
+            <select name="{{question.key().id()}}" value="{{answer}}">
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                </select>
+        </div>
+
+        {% endif %}
+        <input type="submit" value="Grade Quiz"/>
+    </form>
+</div>
+{% endblock %}

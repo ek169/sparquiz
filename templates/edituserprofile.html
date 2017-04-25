@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    {% if classes %}
+        {% for c in classes %}
+        <div class="col-md-9 well">
+            <table class="table borderless">
+                <tr>
+                    <td><span class="h4"><a href="/{{current_user.username}}/{{c.name}}">{{c.name}}</a></span></td>
+                    <td><span class="h6"> {{c.instructor}} - ({{c.year}})</span></td>
+                    <td><span class="glyphicon glyphicon-education"></span><span class="h6"> {{c.school.name}}</span></td>
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
+    {% else %}
+    <span>You don't have any classes yet</span>
+    {% endif %}
+
+</div>
+
+{% endblock %}
