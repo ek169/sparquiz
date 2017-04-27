@@ -24,6 +24,7 @@ import os
 import hashutils
 from random import shuffle
 from populate_schools import pop_schools
+import json
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
@@ -91,11 +92,10 @@ class UserHandler(MainHandler):
         else:
             set_obj = Set.all().filter("class_name =", class_obj).filter("name =", set_name).get()
             memcache.set(str(class_obj.key().id()) + set_name, set_obj)
-            print("trying to cache object")
             return set_obj
 
     def cacheQuestions(self, class_obj, set_obj):
-        questions = memcache.get(str(class_obj.key().id())+str(set_obj.name)+'q')
+        questions = memcache.get(str(class_obj.key().id()) + str(set_obj.name) + 'q')
         if type(questions) is list:
             return questions
         else:
@@ -202,7 +202,7 @@ class viewClass(UserHandler):
                 self.render("editclassview.html", current_user=user, class_obj=class_obj,
                             the_class_sets=the_class_sets, current_id=str(user.key().id()), user_requests=user_requests,
                             class_active="active",
-                            page_title=str(class_obj.name) + ' (' + str(class_obj.year) + ') ')
+                            page_title=str(class_obj.name) + ' (' + str(class_obj.year) + ')')
             else:
                 user_creator = self.get_user_by_name(username)
                 try:
@@ -230,19 +230,23 @@ class addClass(UserHandler):
         user_creator = self.get_user_by_name(username)
         class_obj = Class.all().filter('name =', class_name).filter('user_creator =', user_creator).get()
         if user and user_creator and class_obj:
-            if str(user.key().id()) not in class_obj.requests:
+            if str(user.key().id()) not in class_obj.requests and str(user.key().id()) not in class_obj.other_users:
                 class_obj.requests.append(str(user.key().id()))
                 class_obj.put()
                 memcache.delete(str(user_creator.key().id())+class_name)
-            self.redirect("/%s/%s" % (user_creator.username, class_obj.name))
+                my_response = {'msg': 'Request Sent!'}
+                json_response = json.dumps(my_response)
+                self.response.headers.add_header('content-type', 'text/json', charset='utf-8')
+                self.response.out.write(json_response)
         else:
             self.write("We cannot process your request")
 
     def post(self, username="", class_name=""):
-        answer = self.request.get("answer")
-        uid = self.request.get("uid")
+        data = json.loads(self.request.body)
+        answer = data['answer']
+        uid = data['uid']
+        print(answer, uid)
         user = self.getCookieCacheUser()
-        print("uid = ", uid)
         if user.username == username:
             class_obj = self.cacheClass(user.key().id(), class_name)
             if answer == "Allow":
@@ -253,7 +257,12 @@ class addClass(UserHandler):
                 class_obj.requests.remove(uid)
                 class_obj.put()
             memcache.delete(str(user.key().id())+class_name)
-            self.redirect("/%s/%s" % (user.username, class_obj.name))
+            my_response = {'msg': 'success'}
+            json_response = json.dumps(my_response)
+            self.response.headers.add_header('content-type', 'text/json', charset='utf-8')
+            self.response.out.write(json_response)
+
+
 
 
 
@@ -355,7 +364,6 @@ class createQuestion(UserHandler):
                     other_answers.append(other_ans)
                 else:
                     break
-            print(other_answers)
 
             if question_type == "true/false":
                 if correct_answer == 'true':
@@ -366,7 +374,6 @@ class createQuestion(UserHandler):
             other_answers_is_true = False
             if len(other_answers) > 0:
                 other_answers_is_true = True
-            print(other_answers_is_true)
             if question and correct_answer and question_type and other_answers_is_true:
                 if type(correct_answer) == list:
                     for a in correct_answer:
@@ -384,8 +391,7 @@ class createQuestion(UserHandler):
                     q.correct_answer = correct_answer
                 q.put()
                 set_obj.put()
-                questions = self.get_questions_by_set(set_obj)
-                memcache.set(str(class_obj.key().id())+set_name+'q', questions)
+                memcache.delete(str(class_obj.key().id())+ str(set_obj.name) + 'q')
                 self.redirect("/%s/%s/%s" % (user.username, class_obj.name, set_obj.name))
             else:
                 self.render("create-question.html", type=question_type, current_user=user, set_obj=set_obj,
@@ -467,10 +473,7 @@ class practiceSet(UserHandler):
                     total = int(question.total_attempts) + 1
                     question.correct_attempts = correct
                     question.total_attempts = total
-                    print("attempts info", question.correct_attempts, question.total_attempts)
                     question.difficulty = int(question.correct_attempts)/int(question.total_attempts)*100.0
-                    print(int(question.correct_attempts)/int(question.total_attempts)*100)
-                    print("question difficulty", question.difficulty)
                     shuffle(question.other_answers)
                     question.put()
                     question_results.append([True, question, answer])
@@ -652,7 +655,7 @@ app = webapp2.WSGIApplication([
     ('/signup', Signup),
     ('/login', Login),
     ('/logout', Logout),
-    webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/<class_name>/add/', addClass),
+    webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/<class_name>/add', addClass),
     webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/create-class', createClass),
     webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/<class_name>', viewClass),
     webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/<class_name>/create-set', createSet),

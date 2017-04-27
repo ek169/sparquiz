@@ -51,46 +51,50 @@
                         <li><a href="/{{current_user.username}}/create-class">Create Class</a></li>
                         {% elif class_obj %}
                             {% if current_id in class_obj.other_users %}
-                                <li class="in-class"><a href="/{{current_user.username}}/{{class_obj.name}}">{{class_obj.name}}</a>
-                                    <ul>
-                                        <li class="in-class"><a href="/{{current_user.username}}/{{class_obj.name}}/create-set">Create Set</a></li>
-                                    </ul>
-                                </li>
+                        <li class="in-class"><a href="/{{current_user.username}}/{{class_obj.name}}">{{class_obj.name}}</a>
+                            <ul>
+                                <li class="in-class"><a href="/{{current_user.username}}/{{class_obj.name}}/create-set">Create Set</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
-                            {% if set_obj %}
-                            <li class="hover"><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}">{{set_obj.name}} <span class="glyphicon glyphicon-chevron-down"></span></a>
-                                <ul>
-                                    <li><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/new-question/">New Question</a></li>
-                                    <li><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/practice/">Practice Set</a></li>
-                                    {% endif %}
-                                </ul>
-                            </li>
-                        {% else %}
-                            {% if have_requested %}
-                                <li>Request Already Sent</li>
-                            {% else %}
-                                <li><button class="btn"><a href="/{{user_creator.username}}/{{class_obj.name}}/add/">Add Class</a></button></li>
-                            {% endif %}
-                        {% endif %}
-                        {% if user_requests %}
-                            <li><a href="#">User Requests</a>
-                                <ul>
+                                {% if user_requests %}
+                <li class="hover"><a href="#">User Requests <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <ul>
                                     {% for u in user_requests %}
-                                        <li><a href="/{{u.username}}">{{u.username}} </a>
-                                        <form id="addUser" method="post" action="/{{current_user.username}}/{{class_obj.name}}/add/">
-                                            <input type="hidden" value="{{u.key().id()}}" name="uid"/>
-                                            <button class="btn btn-default btn-circle" type="submit" value="Allow" name="answer"><span class="glyphicon glyphicon-ok"></span></button>
-                                            <button class="btn btn-default btn-circle" type="submit" value="Deny" name="answer"><span class="glyphicon glyphicon-remove"></span></button>
-                                        </form>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
+                        <div id="{{u.username}}div">
+                            <li><a href="/{{u.username}}div">{{u.username}} </a>
+                                <form name="userAddForm" id="{{u.username}}" method="post" action="/{{current_user.username}}/{{class_obj.name}}/add">
+                                    <input type="hidden" value="{{u.key().id()}}" name="uid"/>
+                                    <button class="btn btn-default btn-circle" type="submit" value="Allow" name="answer"><span class="glyphicon glyphicon-ok"></span></button>
+                                    <button id="btnDeny" class="btn btn-default btn-circle" type="submit" value="Deny" name="answer"><span class="glyphicon glyphicon-remove"></span></button>
+                                </form>
                             </li>
-            </ul>
-                        {% endif %}
-                    {% endif %}
+                        </div>
+                                    {% endfor %}
+                    </ul>
+                </li>
+                                {% endif %}
+                                {% if set_obj %}
+                <li class="hover"><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}">{{set_obj.name}} <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <ul>
+                        <li><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/new-question/">New Question</a></li>
+                        <li><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/practice/">Practice Set</a></li>
 
+                    </ul>
+                </li>
+                                {% endif %}
+                            {% else %}
+                                {% if have_requested %}
+                <li><a href="#">Request Already Sent</a></li>
+                                {% else %}
+                <div id="add-class-div">
+                    <li id="add-class"><a href="/{{user_creator.username}}/{{class_obj.name}}/add">Add Class</a></li>
+                </div>
+                                {% endif %}
+                            {% endif %}
+                    {% endif %}
+            </ul>
         </div>
         {% else %}
         <div id="not-logged" class="sidebar col-xs-2">
@@ -114,7 +118,7 @@
             </div>
         </div>
         {% endif %}
-        <div class="col-md-9">
+        <div class="col-md-8">
             <h1 class="page-header"><a href="#">{{page_title}}</a></h1>
             {% block content %}
 

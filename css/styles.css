@@ -20,6 +20,11 @@ small.last-modified-text {
     color: red;
 }
 
+.table-padding {
+    padding-top: 5px;
+    text-align: left;
+}
+
 h4.h4 {
     font-size: 15px;
 }
@@ -104,7 +109,7 @@ span.delete-input.glyphicon.glyphicon-minus {
 div#question-border.col-md-4.well {
     margin: 9px;
     padding: 9px;
-    overflow: hidden
+    overflow: hidden;
     height: 40px;
     border-width: 1px;
     border-style: solid;
