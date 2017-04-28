@@ -24,3 +24,8 @@ indexes:
   properties:
   - name: set_name
   - name: difficulty
+
+- kind: Question
+  properties:
+  - name: set_name
+  - name: last_edited

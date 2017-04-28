@@ -43,7 +43,6 @@ class Question(db.Model):
     type = db.StringProperty(required=True)
     total_attempts = db.IntegerProperty(required=True)
     correct_attempts = db.IntegerProperty(required=True)
-    difficulty = db.FloatProperty(required=False)
     set_name = db.ReferenceProperty(Set)
 
 

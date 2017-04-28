@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row">
-    <div class="col-md-4 well">
+    <div class="col-md-4 well left">
+        <ul>
+            {% for c in user_classes %}
+                <li><a href="/{{current_user.username}}/{{c.name}}">{{c.name}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-4 well right">
         <ul>
             {% for c in the_classes %}
                 <li><a href="/{{c.user_creator.username}}/{{c.name}}">{{c.name}}</a></li>

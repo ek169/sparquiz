@@ -3,20 +3,16 @@
 {% if the_class_sets %}
     <div class="container-fluid">
     {% for s in the_class_sets %}
-        <div class="col-md-9 well">
-            <table class="table borderless">
-                <tr>
-                    <td>
-                        <span><a href="/{{current_user.username}}/{{class_obj.name}}/{{s.name}}">{{s.name}}</a></span>
-                    </td>
-                    <td>
-                        <span class="description-text">{{s.description}}</span>
-                    </td>
-                    <td>
-                        <small class="last-modified-text">Last Modified: {{s.last_updated}}</small>
-                    </td>
-                </tr>
-            </table>
+        <div class="row well">
+            <div class="col-md-4">
+                <span><a href="/{{current_user.username}}/{{class_obj.name}}/{{s.name}}">{{s.name}}</a></span>
+            </div>
+            <div class="col-md-4">
+                <span class="description-text">{{s.description}}</span>
+            </div>
+            <div class="col-md-4">
+                <small class="last-modified-text">Last Modified: {{s.last_updated}}</small>
+            </div>
         </div>
         {% endfor %}
     </div>

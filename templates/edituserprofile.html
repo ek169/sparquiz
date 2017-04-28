@@ -2,15 +2,15 @@
 {% block content %}
 <div>
     {% if classes %}
-    <table class="table borderless">
+    <div class="container col-md-12">
         {% for c in classes %}
-        <tr class="table-padding well">
-            <td><a href="/{{current_user.username}}/{{c.name}}">{{c.name}}</a></td>
-            <td>{{c.instructor}} - ({{c.year}})</td>
-            <td><span class="glyphicon glyphicon-education"></span> {{c.school.name}}</td>
-        </tr>
+        <div class="row well">
+            <div class="col-md-4"><a href="/{{current_user.username}}/{{c.name}}">{{c.name}}</a></div>
+            <div class="col-md-4">{{c.instructor}} - ({{c.year}})</div>
+            <div class="col-md-4"><span class="glyphicon glyphicon-education"></span> {{c.school.name}}</div>
+        </div>
         {% endfor %}
-    </table>
+    </div>
     {% else %}
     <span>You don't have any classes yet</span>
     {% endif %}

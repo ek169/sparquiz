@@ -124,7 +124,38 @@
 
             {% endblock %}
         </div>
+        <div class="sidebar col-xs-2 pull-right">
+            <div id="right-side-bar" class="col-xs-2 affix">
+                {% if current_user %}
+                <ul class="nav nav-stacked">
+                    <li>
+                        <a href="#">
+                            <h2 class="h2">
+                                Help
+                                <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                            </h2>
+                        </a>
+                    </li>
+                    <li>
+                        <div id="stats-side-div">
+                            {% if set_obj %}
+                            <span class="hover">Click <span class="glyphicon glyphicon-stats"></span> for more info</span>
+                            {% endif %}
 
+                        </div>
+                    </li>
+                    <li><a href="#">Link</a>
+                    </li>
+                    <li><a href="#">Link</a>
+                    </li>
+                    <li><a href="#">Link</a>
+                    </li>
+
+                    </ul>
+                {% else %}
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
 </body>

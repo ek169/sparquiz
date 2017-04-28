@@ -3,17 +3,25 @@
 {% if questions %}
     <div class="container-fluid">
     {% for question in questions %}
-        <div id="question-border" class="col-md-4 well">
-            <table class="table borderless">
-                <tr>
-                    <td>
-                        <span class="question-view-format">{{question.question}}</span>
-                    </td>
-                    <td>
-                        <span><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/{{question.key().id()}}">Edit </a></span>
-                    </td>
-                </tr>
-            </table>
+        <div id="question-border" class="col-md-12 well">
+            <div class="row questionInfo">
+                <div class="col-md-8">
+                    <span class="question-view-format">{{question.question}}</span>
+                </div>
+                <div id="difficulty-edit" class="col-md-4">
+                    <a class="difficulty-icon" href="#"><span id="difficulty-stats" class="glyphicon glyphicon-stats">
+                        <span id="question-correct-attempts" hidden="hidden">{{question.correct_attempts}}</span>
+                        <span id="question-total-attempts" hidden="hidden">{{question.total_attempts}}</span>
+                        <span id="question-correct-answer" hidden="hidden">{{question.correct_answer}}</span>
+                    </span></a>
+                    {% if question.total_attempts > 0 %}
+                    <span id="question-difficulty"><strong>{{((question.correct_attempts/question.total_attempts)*100)|int}}</strong></span>
+                    {% else %}
+                    <span><strong><em>00</em></strong></span>
+                    {% endif %}
+                    <span><a id="edit-question-button" href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/{{question.key().id()}}">Edit</a></span>
+                </div>
+            </div>
         </div>
     {% endfor %}
     </div>

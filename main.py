@@ -114,7 +114,7 @@ class UserHandler(MainHandler):
             return set_name.get()
 
     def get_questions_by_set(self, set_obj):
-        questions = Question.all().filter('set_name =', set_obj).order('difficulty')
+        questions = Question.all().filter('set_name =', set_obj).order('last_edited')
         return questions
 
     def get_question_by_id(self, question_id):
@@ -149,13 +149,14 @@ class Index(UserHandler):
 
     def get(self):
         user = self.getCookieCacheUser()
-        the_classes = Class.all()
         if user:
+            the_classes = Class.all().filter("user_creator !=", user)
             user_classes = self.cacheAllUserClasses(user.key().id())
             page_title = "Welcome " + user.username
             self.render('index.html', current_user=user, the_classes=the_classes,
                         page_title=page_title, user_classes=user_classes)
         else:
+            the_classes = Class.all()
             page_title = "Welcome To Sparquiz"
             self.render('index.html', current_user=None, the_classes=the_classes, page_title=page_title)
 
