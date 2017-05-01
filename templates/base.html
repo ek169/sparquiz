@@ -76,12 +76,7 @@
                 </li>
                                 {% endif %}
                                 {% if set_obj %}
-                <li class="hover"><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}">{{set_obj.name}} <span class="glyphicon glyphicon-chevron-down"></span></a>
-                    <ul>
-                        <li><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/new-question/">New Question</a></li>
-                        <li><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/practice/">Practice Set</a></li>
-
-                    </ul>
+                <li class="hover"><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}">{{set_obj.name}}</a>
                 </li>
                                 {% endif %}
                             {% else %}
@@ -137,19 +132,15 @@
                         </a>
                     </li>
                     <li>
-                        <div id="stats-side-div">
                             {% if set_obj %}
+                        <li><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/new-question/">New Question</a></li>
+                        <li><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/practice/">Practice Set</a></li>
+                        <div id="stats-side-div">
                             <span class="hover">Click <span class="glyphicon glyphicon-stats"></span> for more info</span>
-                            {% endif %}
-
                         </div>
+                            {% endif %}
                     </li>
-                    <li><a href="#">Link</a>
-                    </li>
-                    <li><a href="#">Link</a>
-                    </li>
-                    <li><a href="#">Link</a>
-                    </li>
+
 
                     </ul>
                 {% else %}

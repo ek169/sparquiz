@@ -2,6 +2,17 @@
 {% block content %}
 {% if questions %}
     <div class="container-fluid">
+        <div class="col-md-12 well set-view-header">
+            <div class="row">
+                <div class="col-md-8">
+                    <strong>Question <span class="glyphicon glyphicon-chevron-down"></span></strong>
+                </div>
+                <div class="col-md-4 set-header-analytics">
+                    <span><strong>Analytics <span class="glyphicon glyphicon-chevron-down"></span></strong></span>
+                </div>
+            </div>
+
+        </div>
     {% for question in questions %}
         <div id="question-border" class="col-md-12 well">
             <div class="row questionInfo">
@@ -9,7 +20,8 @@
                     <span class="question-view-format">{{question.question}}</span>
                 </div>
                 <div id="difficulty-edit" class="col-md-4">
-                    <a class="difficulty-icon" href="#"><span id="difficulty-stats" class="glyphicon glyphicon-stats">
+                    <a class="difficulty-icon" href="#">
+                        <span id="difficulty-stats" class="glyphicon glyphicon-stats" >
                         <span id="question-correct-attempts" hidden="hidden">{{question.correct_attempts}}</span>
                         <span id="question-total-attempts" hidden="hidden">{{question.total_attempts}}</span>
                         <span id="question-correct-answer" hidden="hidden">{{question.correct_answer}}</span>
@@ -20,6 +32,7 @@
                     <span><strong><em>00</em></strong></span>
                     {% endif %}
                     <span><a id="edit-question-button" href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/{{question.key().id()}}">Edit</a></span>
+
                 </div>
             </div>
         </div>

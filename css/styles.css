@@ -122,10 +122,24 @@ div#question-border{
 
 a#edit-question-button {
     padding-left: 30px;
+    padding-right: 0px;
 }
 
 #difficulty-edit {
-    padding-left: 110px;
+    right: -110px;
+    position: absolute;
+}
+
+.set-view-header {
+    height: 40px;
+    border-width: 1px;
+    border-style: solid;
+    margin: 9px;
+    padding: 9px;
+}
+
+.set-header-analytics {
+    right: -70px;
 }
 
 .input-error {
@@ -148,6 +162,11 @@ a#edit-question-button {
 
 .side-bar-title {
     text-decoration: underline;
+
+}
+
+#stats-side-div {
+    padding-top: 15px;
 }
 
 .center {
