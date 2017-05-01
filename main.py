@@ -346,10 +346,11 @@ class createQuestion(UserHandler):
             question_type = self.request.get("questionType")
             question = self.request.get("question")
             class_obj = self.cacheClass(user.key().id(), class_name)
+            class_key = str(class_obj.key().id())
             set_obj = self.cacheSet(set_name, class_obj)
             if question_type == 'check':
                 correct_answer = []
-                for i in range(1, 5):
+                for i in range(1, 6):
                     correct_ans = self.request.get('correctAnswer' + str(i))
                     if correct_ans:
                         correct_answer.append(correct_ans)
@@ -359,7 +360,7 @@ class createQuestion(UserHandler):
                 correct_answer = self.request.get("correctAnswer1")
 
             other_answers = []
-            for i in range(1, 5):
+            for i in range(1, 6):
                 other_ans = self.request.get('otherAnswers' + str(i))
                 if other_ans:
                     other_answers.append(other_ans)
@@ -368,13 +369,14 @@ class createQuestion(UserHandler):
 
             if question_type == "true/false":
                 if correct_answer == 'true':
-                    other_answers = ['false']
+                    other_answers.append('false')
                 elif correct_answer == 'false':
-                    other_answers = ['true']
+                    other_answers.append('true')
 
             other_answers_is_true = False
             if len(other_answers) > 0:
                 other_answers_is_true = True
+            print(other_answers_is_true)
             if question and correct_answer and question_type and other_answers_is_true:
                 if type(correct_answer) == list:
                     for a in correct_answer:
@@ -392,12 +394,12 @@ class createQuestion(UserHandler):
                     q.correct_answer = correct_answer
                 q.put()
                 set_obj.put()
-                memcache.delete(str(class_obj.key().id())+ str(set_obj.name) + 'q')
+                memcache.delete(str(class_obj.key().id()) + str(set_obj.name) + 'q')
                 self.redirect("/%s/%s/%s" % (user.username, class_obj.name, set_obj.name))
             else:
                 self.render("create-question.html", type=question_type, current_user=user, set_obj=set_obj,
                         class_obj=class_obj, question=question, current_id=str(user.key().id()),
-                            correct_answer=correct_answer, class_active="active")
+                            correct_answer=correct_answer, class_active="active", page_title="New Question")
         else:
             self.redirect("/")
 
@@ -493,7 +495,8 @@ class practiceSet(UserHandler):
             set_obj.total_attempts = total_attempts
             set_obj.put()
             self.render("practice-results.html", current_user=user, class_active="active", current_id=str(user.key().id()),
-                        question_results=question_results, class_obj=class_obj, set_obj=set_obj, attempt_score=attempt_score, page_title="Practice Results")
+                        question_results=question_results, class_obj=class_obj, set_obj=set_obj, attempt_score=attempt_score,
+                        page_title="Practice Results")
 
 
 class practiceQuestion(UserHandler):

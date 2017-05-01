@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
+    <span id="attemptScore" hidden="hidden">{{attempt_score}}</span>
     {% for correct, question, answer in question_results %}
     <div class="row">
         <div class="row">
@@ -69,10 +70,8 @@
             </div>
         {% endif %}
     </div>
-    <hr>
+    <hr class="hrPractice">
     {% endfor %}
-    <div class="row">
-        <h4>Your Score: {{attempt_score}}</h4>
-    </div>
 </div>
+<script src="/js/practiceResults.js"></script>
 {% endblock %}

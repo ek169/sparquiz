@@ -15,9 +15,11 @@ $(document).ready(function() {
         var correctAnswers = $('#correct-answer');
         var correctTotal = $('#correct-answer p').size() + 1;
         $("#add-correct-answer").click(function() {
-            var newCorrect = $('<p><label><input class="form-control" type="text" name="correctAnswer' + correctTotal + '"/></label><a href="#"><span class="delete-input glyphicon glyphicon-minus"></span></a></p>');
-            newCorrect.appendTo(correctAnswers);
-            correctTotal++;
+            if(correctTotal < 6){
+                var newCorrect = $('<p><label><input class="form-control" type="text" name="correctAnswer' + correctTotal + '"/></label><a href="#"><span class="delete-input glyphicon glyphicon-minus"></span></a></p>');
+                newCorrect.appendTo(correctAnswers);
+                correctTotal++;
+            }
 
             $('[name*="correctAnswer"]').each(function () {
                 $(this).rules('add', "required");
@@ -38,7 +40,7 @@ $(document).ready(function() {
     $("#correct-answer").find("p").slice(1).remove();
     $("#correct-answer").hide();
     $("#correct-answer :input").attr("disabled", true);
-    $("#answer-label").append("<div><select name='correctAnswer' class='form-control'><option value='true'>True</option><option value='false'>False</option></select></div>");
+    $("#answer-label").append("<div><select name='correctAnswer1' class='form-control'><option value='true'>True</option><option value='false'>False</option></select></div>");
     }
 });
 
@@ -46,9 +48,11 @@ $(document).ready(function() {
 var otherAnswers = $('#other-answers');
 var otherTotal = $('#other-answers p').size() + 1;
 $("#add-other-answers").click(function() {
-    var newOther = $('<p><label><input class="form-control" type="text" name="otherAnswers' + otherTotal + '"/></label><a href="#"><span class="delete-input glyphicon glyphicon-minus"></span></a></p>');
-    newOther.appendTo(otherAnswers);
-    otherTotal++;
+    if(otherTotal < 6){
+        var newOther = $('<p><label><input class="form-control" type="text" name="otherAnswers' + otherTotal + '"/></label><a href="#"><span class="delete-input glyphicon glyphicon-minus"></span></a></p>');
+        newOther.appendTo(otherAnswers);
+        otherTotal++;
+    }
     $('[name*="otherAnswers"]').each(function () {
         $(this).rules('add', "required");
     });

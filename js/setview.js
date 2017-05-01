@@ -1,7 +1,11 @@
 $(document).ready(function() {
     $(".difficulty-icon").tooltip();
+    var statsDiv = $("#stats-side-div");
     $('.questionInfo').each(function(){
     var number = $(this).find("#question-difficulty");
+    if(number){
+        statsDiv.html('<span class="hover">Click <span class="glyphicon glyphicon-stats"></span> for more info</span>');
+    }
     var difficulty = number.text();
     if(difficulty <= 33){
         number.css("color", "red");
@@ -14,7 +18,6 @@ $(document).ready(function() {
     }
     });
 
-    var statsDiv = $("#stats-side-div");
     $(".difficulty-icon").click(function(e) {
         $(".question-view-format").each(function(){
             if($(this).parent().is("a")){
