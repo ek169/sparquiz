@@ -226,7 +226,7 @@ class viewClass(UserHandler):
 
 
 class addClass(UserHandler):
-    def get(self, username="", class_name=""):
+    def post(self, username="", class_name=""):
         user = self.getCookieCacheUser()
         user_creator = self.get_user_by_name(username)
         class_obj = Class.all().filter('name =', class_name).filter('user_creator =', user_creator).get()
@@ -235,13 +235,15 @@ class addClass(UserHandler):
                 class_obj.requests.append(str(user.key().id()))
                 class_obj.put()
                 memcache.delete(str(user_creator.key().id())+class_name)
-                my_response = {'msg': 'Request Sent!'}
+                my_response = {'msg': 'success'}
                 json_response = json.dumps(my_response)
                 self.response.headers.add_header('content-type', 'text/json', charset='utf-8')
                 self.response.out.write(json_response)
         else:
             self.write("We cannot process your request")
 
+
+class addUser(UserHandler):
     def post(self, username="", class_name=""):
         data = json.loads(self.request.body)
         answer = data['answer']
@@ -659,7 +661,8 @@ app = webapp2.WSGIApplication([
     ('/signup', Signup),
     ('/login', Login),
     ('/logout', Logout),
-    webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/<class_name>/add', addClass),
+    webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/<class_name>/add-class', addClass),
+    webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/<class_name>/add-user', addUser),
     webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/create-class', createClass),
     webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/<class_name>', viewClass),
     webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/<class_name>/create-set', createSet),

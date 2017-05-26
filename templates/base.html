@@ -17,7 +17,6 @@
     <script src="/js/form.js"></script>
     <script src="/js/signup.js"></script>
     <script src="/js/setview.js"></script>
-    <script src="/js/addClass.js"></script>
 </head>
 <body>
 
@@ -45,8 +44,7 @@
         <div class="sidebar col-md-2">
             <ul class="nav nav-stacked affix">
                 <li><a href="/">Recent Activity</a></li>
-                <li class="hover"><a href="/{{current_user.username}}">Classes</a>
-                </li>
+                <li class="hover"><a href="/{{current_user.username}}">Classes</a></li>
                         {% if class_obj %}
                             {% if current_id in class_obj.other_users %}
                                 {% if user_requests %}
@@ -55,7 +53,7 @@
                                     {% for u in user_requests %}
                         <div id="{{u.username}}div">
                             <li><a href="/{{u.username}}div">{{u.username}} </a>
-                                <form name="userAddForm" id="{{u.username}}" method="post" action="/{{current_user.username}}/{{class_obj.name}}/add">
+                                <form name="userAddForm" id="{{u.username}}" method="post" action="/{{current_user.username}}/{{class_obj.name}}/add-user">
                                     <input type="hidden" value="{{u.key().id()}}" name="uid"/>
                                     <button class="btn btn-default btn-circle" type="submit" value="Allow" name="answer"><span class="glyphicon glyphicon-ok"></span></button>
                                     <button id="btnDeny" class="btn btn-default btn-circle" type="submit" value="Deny" name="answer"><span class="glyphicon glyphicon-remove"></span></button>
@@ -68,11 +66,11 @@
                                 {% endif %}
                             {% else %}
                                 {% if have_requested %}
-                <li><a href="#">Request Already Sent</a></li>
+                <li><a href="#">Request Sent!</a></li>
                                 {% else %}
-                <div id="add-class-div">
-                    <li id="add-class"><a href="/{{user_creator.username}}/{{class_obj.name}}/add">Add Class</a></li>
-                </div>
+                    <li id="add-class" class="hover">
+                        <a href="/{{user_creator.username}}/{{class_obj.name}}/add-class">Add Class</a>
+                    </li>
                                 {% endif %}
                             {% endif %}
                     {% endif %}
@@ -131,7 +129,7 @@
                     </li>
                     <li>
                                 {% if set_obj %}
-                        <li class="hover"><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}">{{set_obj.name}} <span class="glyphicon glyphicon-chevron-down"></a>
+                    <li class="hover"><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}">{{set_obj.name}} <span class="glyphicon glyphicon-chevron-down"></span></a>
                             <ul>
                                 <li><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/new-question/">New Question</a></li>
                         <li><a href="/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/practice/">Practice Set</a></li>

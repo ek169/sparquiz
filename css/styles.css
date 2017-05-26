@@ -16,6 +16,10 @@ h1.page-header {
 
 }
 
+.index-class-header {
+    padding-bottom: 10px;
+}
+
 div.sidebar.col-md-2 {
     padding-top: 11%;
 }

@@ -1,18 +1,18 @@
 $(document).ready(function() {
     $("#add-class").click(function(e){
-        var url = $(this).attr("href");
-        var addDiv = $("#add-class-div");
-
+        e.preventDefault();
+        var aElement = $(this).find("a");
+        var url = aElement.attr("href");
         $.ajax({
-            type: "GET",
-            url: url,
             dataType: "text json",
-            }).done(function(msg) {
-                addDiv.replaceWith("<span><a>" + msg + "</a></span>")
+            data: JSON.stringify({'answer': 'add'}),
+            type: "POST",
+            url: url,
+            }).done(function() {
+                $(aElement).replaceWith("<a>Request Sent!</a>")
             }).fail(function(){
                 alert("Your response wasn't recorded");
             });
-        e.preventDefault;
     });
 });
 
@@ -32,7 +32,7 @@ $(document).on('click',':submit',function(e) {
             dataType: "text json",
             data: JSON.stringify({"uid": uid, "answer": answer}),
                 }).done(function(msg) {
-                    formDiv.replaceWith("<span><a>Got It!</a></span>")
+                    formDiv.replaceWith("<div><span><a>Got It!</a></span></div>")
                 }).fail(function(){
                     alert("Your response wasn't recorded");
                 });

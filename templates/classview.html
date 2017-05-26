@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 {% if the_class_sets %}
+<script src="/js/addClass.js"></script>
+<script src="/js/viewingOtherUsersClass.js"></script>
     <div class="container-fluid">
     {% for s in the_class_sets %}
-            <div class="col-md-3 well">
-            <p>
+        <div class="row well">
+            <div class="col-md-4">
                 <span>{{s.name}}</span>
-                <div>
-                    <span class="description-text"><small class="last-modified-text">Last Modified: {{s.last_updated}}</small><br>{{s.description}}</span>
-                </div>
-            </p>
+            </div>
+            <div class="col-md-4">
+                <span class="description-text">{{s.description}}</span>
+            </div>
+            <div class="col-md-4">
+                <small class="last-modified-text">Last Modified: {{s.last_updated}}</small>
+            </div>
         </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 {% else %}
 <span>There are no sets in this class</span>
-<script src="/js/viewingOtherUsersClass.js"></script>
 {% endif %}
 {% endblock %}
