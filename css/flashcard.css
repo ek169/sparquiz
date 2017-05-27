@@ -1,0 +1,46 @@
+<script>
+
+#flash-card {
+    margin: 0 50 50 0 auto;
+
+}
+
+.face {
+    padding: 75px;
+    border: 1px;
+    border-style: solid;
+    text-align: center;
+
+}
+
+.back {
+    background-color: #F5F5F5;
+}
+
+.flip {
+    height: 180px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+#flip-help-text {
+    text-align: center;
+    font-size: 11px;
+    position: inline;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+#left-arrow {
+    float: left;
+    font-size: 25px;
+    padding-top: 5px;
+}
+
+#right-arrow {
+    float: right;
+    font-size: 25px;
+    padding-top: 5px;
+
+}
+</script>

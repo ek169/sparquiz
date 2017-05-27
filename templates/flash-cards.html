@@ -1,17 +1,25 @@
-{% extends 'base.html' %}
-{% block content %}
-<div class="container">
-    <div class="flashCard">
-        <div id="cardQuestion">
-            <h4 class="h4">
-                {{question.question}}
-            </h4>
+<html>
+    <body>
+        <span hidden="hidden" id="questions-link">"/{{current_user.username}}/{{class_obj.name}}/{{set_obj.name}}/flash-cards"</span>
+        <head>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Flip/1.1.2/jquery.flip.js"></script>
+            <link rel="stylesheet" type="text/css" href="/css/flashcard.css">
+        </head>
+        <div class="flip">
+            <div class="card" id="flash-card">
+                <div id="front" class="face front">
+
+                </div>
+                <div id="back" class="face back">
+
+                </div>
+            </div>
+            <a href="#"><span id="left-arrow" class="glyphicon glyphicon-chevron-left hover"></span></a>
+            <a href="#"><span id="right-arrow" class="glyphicon glyphicon-chevron-right hover"></span></a>
         </div>
-        <div id="cardAnswer">
-            <p>
-                {{question.answer}}
-            </p>
+        <div id="flip-help-text">
+            Hover Over To See The Answer
         </div>
-    </div>
-</div>
-{% endblock %}
+        <script src="/js/flashCard.js" defer></script>
+    </body>
+</html>

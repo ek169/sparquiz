@@ -160,6 +160,17 @@ class Index(UserHandler):
             page_title = "Welcome To Sparquiz"
             self.render('index.html', current_user=None, the_classes=the_classes, page_title=page_title)
 
+class flashCards(UserHandler):
+    def post(self, set_name="", class_name="", username=""):
+        user = self.getCookieCacheUser()
+        class_obj = self.cacheClass(user.key().id(), class_name)
+        set_obj = self.cacheSet(set_name, class_obj)
+        questions = self.cacheQuestions(class_obj, set_obj)
+        json_questions = []
+        for q in questions:
+            json_questions.append({"q": q.question, "a": q.correct_answer})
+        json_output = json.dumps(json_questions)
+        self.response.out.write(json_output)
 
 class createClass(UserHandler):
     def get(self, username=""):
@@ -264,12 +275,6 @@ class addUser(UserHandler):
             json_response = json.dumps(my_response)
             self.response.headers.add_header('content-type', 'text/json', charset='utf-8')
             self.response.out.write(json_response)
-
-
-
-
-
-
 
 
 class createSet(UserHandler):
@@ -661,6 +666,7 @@ app = webapp2.WSGIApplication([
     ('/signup', Signup),
     ('/login', Login),
     ('/logout', Logout),
+    webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/<class_name>/<set_name>/flash-cards', flashCards),
     webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/<class_name>/add-class', addClass),
     webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/<class_name>/add-user', addUser),
     webapp2.Route('/<username:[a-zA-Z0-9_-]{3,20}>/create-class', createClass),
