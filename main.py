@@ -168,7 +168,13 @@ class flashCards(UserHandler):
         questions = self.cacheQuestions(class_obj, set_obj)
         json_questions = []
         for q in questions:
-            json_questions.append({"q": q.question, "a": q.correct_answer})
+            if q.type == 'check':
+                check_answers = ""
+                for a in q.multiple_correct_answers:
+                    check_answers += (a + '<br>')
+                json_questions.append({"q": q.question, "a": check_answers})
+            else:
+                json_questions.append({"q": q.question, "a": q.correct_answer})
         json_output = json.dumps(json_questions)
         self.response.out.write(json_output)
 
@@ -353,7 +359,6 @@ class createQuestion(UserHandler):
             question_type = self.request.get("questionType")
             question = self.request.get("question")
             class_obj = self.cacheClass(user.key().id(), class_name)
-            class_key = str(class_obj.key().id())
             set_obj = self.cacheSet(set_name, class_obj)
             if question_type == 'check':
                 correct_answer = []

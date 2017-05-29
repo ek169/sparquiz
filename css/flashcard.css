@@ -1,16 +1,13 @@
 <script>
 
 #flash-card {
-    margin: 0 50 50 0 auto;
 
 }
 
 .face {
-    padding: 75px;
-    border: 1px;
-    border-style: solid;
     text-align: center;
-
+    padding-top: 30px;
+    padding-bottom: 45px;
 }
 
 .back {
@@ -18,9 +15,10 @@
 }
 
 .flip {
-    height: 180px;
-    padding-left: 100px;
-    padding-right: 100px;
+    margin-left: 100px;
+    margin-right: 100px;
+    border: 1px;
+    border-style: solid;
 }
 
 #flip-help-text {
@@ -32,6 +30,7 @@
 }
 
 #left-arrow {
+    position:inline;
     float: left;
     font-size: 25px;
     padding-top: 5px;
@@ -43,4 +42,5 @@
     padding-top: 5px;
 
 }
+
 </script>

@@ -1,7 +1,6 @@
 $(document).ready(function(){
     var questions;
-    var url = $("#questions-link").val();
-    alert(url);
+    var url = $("#questionsLink").attr("href");
     $.ajax({
         type: "POST",
         url: url,
@@ -11,16 +10,20 @@ $(document).ready(function(){
     }).done(function(json_output){
         questions = JSON.parse(json_output);
     });
-    alert(questions);
     $(".card").flip({
         axis: 'x',
         trigger: 'hover'
     });
+
     var counter = 0;
     var frontDiv = $("#front");
     var backDiv = $("#back");
     var leftArrow = $("#left-arrow");
     var rightArrow = $("#right-arrow");
+    if(questions[0] == null){
+        frontDiv.html("Add Some Questions");
+        backDiv.html("<strong>This is where the answers will be!</strong>");
+    }
 
     checkCounter(counter);
 
@@ -30,6 +33,7 @@ $(document).ready(function(){
             checkCounter(counter);
         }
         showQuestion(counter);
+        e.preventDefault();
     });
 
     leftArrow.click(function(e){
@@ -38,6 +42,7 @@ $(document).ready(function(){
             checkCounter(counter);
         }
         showQuestion(counter);
+        e.preventDefault();
     });
 
     function showQuestion(counter) {
