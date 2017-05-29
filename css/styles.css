@@ -138,14 +138,15 @@ div#question-border{
 }
 
 a#edit-question-button {
-    padding-left: 30px;
-
+    position: absolute;
+    right: 130px;
 }
 
 #difficulty-edit {
     right: -10%;
 
 }
+
 
 .set-view-header {
     height: 40px;

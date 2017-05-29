@@ -25,6 +25,7 @@ import hashutils
 from random import shuffle
 from populate_schools import pop_schools
 import json
+import time
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
@@ -265,7 +266,6 @@ class addUser(UserHandler):
         data = json.loads(self.request.body)
         answer = data['answer']
         uid = data['uid']
-        print(answer, uid)
         user = self.getCookieCacheUser()
         if user.username == username:
             class_obj = self.cacheClass(user.key().id(), class_name)
@@ -388,7 +388,6 @@ class createQuestion(UserHandler):
             other_answers_is_true = False
             if len(other_answers) > 0:
                 other_answers_is_true = True
-            print(other_answers_is_true)
             if question and correct_answer and question_type and other_answers_is_true:
                 if type(correct_answer) == list:
                     for a in correct_answer:
@@ -405,6 +404,7 @@ class createQuestion(UserHandler):
                 else:
                     q.correct_answer = correct_answer
                 q.put()
+                time.sleep(1)
                 set_obj.put()
                 memcache.delete(str(class_obj.key().id()) + str(set_obj.name) + 'q')
                 self.redirect("/%s/%s/%s" % (user.username, class_obj.name, set_obj.name))
