@@ -140,11 +140,6 @@ class UserHandler(MainHandler):
         if cookie_val:
             return hashutils.validate_cookie(cookie_val)
 
-    def get_post_by_name(self, title):
-        post = db.GqlQuery("select * from Post where title = '%s and '" % title)
-        if post:
-            post.get()
-
 
 class Index(UserHandler):
 
