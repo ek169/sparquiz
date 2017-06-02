@@ -27,7 +27,12 @@
                         <span id="difficulty-stats" class="glyphicon glyphicon-stats" >
                         <span id="question-correct-attempts" hidden="hidden">{{question.correct_attempts}}</span>
                         <span id="question-total-attempts" hidden="hidden">{{question.total_attempts}}</span>
+                            {% if question.type == 'check' %}
+                        <span id="question-correct-answer" hidden="hidden">{{question.multiple_correct_answers|join(', ') }}</span>
+
+                            {% else %}
                         <span id="question-correct-answer" hidden="hidden">{{question.correct_answer}}</span>
+                            {% endif %}
                     </span></a>
                     {% if question.total_attempts > 0 %}
                     <span id="question-difficulty"><strong>{{((question.correct_attempts/question.total_attempts)*100)|int}}</strong></span>
