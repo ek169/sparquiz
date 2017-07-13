@@ -234,7 +234,7 @@ class viewClass(UserHandler):
                 except AttributeError:
                     self.write("There is either no user or class by that name")
         else:
-            self.render("login.html", error="You must be logged in to view this class")
+            self.redirect("/login")
 
 
 
