@@ -1,6 +1,40 @@
 <style>
+
+#front-page-div {
+    margin: auto;
+    height: 250px;
+}
+
+#front-page-text {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 230px;
+    bottom: 0px;
+
+}
+
+#pic-text-div {
+    border: 1px solid;
+    border-radius: 4px;
+    height: 260px;
+    width: 665px;
+}
+
+#front-page-pic-div {
+    float: right
+    height: 240px;
+    width: 240px;
+}
+
+#front-page-pic {
+    width: 240px;
+    height: 240px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 #nav-override {
-    padding-bottom: 20px;
+    padding-bottom: 12px;
 }
 
 #body-content {
@@ -45,11 +79,11 @@ h4.h4 {
 }
 
 span.glyphicon.glyphicon-arrow-down {
-    padding-left: 50px;
+    padding-left: 45px;
 }
 
 button.sign-up.btn.btn-primary {
-    margin-left: 5px;
+    margin-left: 0px;
     margin-top: 5px;
 }
 

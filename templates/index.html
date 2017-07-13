@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row">
-
+    {% if not current_user %}
+    <div id="pic-text-div" class="col-md-12">
+        <div class="col-md-6" id="front-page-div">
+            <span id="front-page-text" class="h1">
+            This is history >
+            </span>
+        </div>
+        <div id="front-page-pic-div" class="col-md-6">
+            <img id="front-page-pic" src="/pictures/book.png"/>
+        </div>
+    </div>
+    {% endif %}
     <div class="col-md-4 well left">
         <label class="index-class-header">
             Most Recent Classes
@@ -12,7 +23,11 @@
             <li><a href="/{{current_user.username}}/{{c.name}}">{{c.name}}</a></li>
             {% endfor %}
         {% else %}
-            <p class="danger">You Should Create or Add Classes!</p>
+            <p class="danger">Create Some Classes Like >
+            <ul>
+            <li>Impossible To Pass 305</li>
+            <li>Creative 101</li>
+        </ul></p>
          {% endif %}
         </ul>
 
