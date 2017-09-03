@@ -2,47 +2,51 @@
 {% block content %}
 <div class="row">
     {% if not current_user %}
-    <div id="pic-text-div" class="col-md-12">
-        <div class="col-md-6" id="front-page-div">
-            <span id="front-page-text" class="h1">
-            This is history >
-            </span>
-        </div>
-        <div id="front-page-pic-div" class="col-md-6">
-            <img id="front-page-pic" src="/pictures/book.png"/>
+    <div class="row">
+        <div id="pic-text-div" class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="front-page-div">
+                <span id="front-page-text">
+                This is history >
+                </span>
+            </div>
+            <div id="front-page-pic-div" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <img class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="front-page-pic" src="/pictures/book.png"/>
+            </div>
         </div>
     </div>
     {% endif %}
-    <div class="col-md-4 well left">
-        <label class="index-class-header">
-            Most Recent Classes
-        </label>
-        <ul>
-        {% if user_classes %}
-            {% for c in user_classes %}
-            <li><a href="/{{current_user.username}}/{{c.name}}">{{c.name}}</a></li>
-            {% endfor %}
-        {% else %}
-            <p class="danger">Create Some Classes Like >
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 well left">
+            <label class="index-class-header">
+                Most Recent Classes
+            </label>
             <ul>
-            <li>Impossible To Pass 305</li>
-            <li>Creative 101</li>
-        </ul></p>
-         {% endif %}
-        </ul>
+            {% if user_classes %}
+                {% for c in user_classes %}
+                <li><a href="/{{current_user.username}}/{{c.name}}">{{c.name}}</a></li>
+                {% endfor %}
+            {% else %}
+                <p class="danger">Create Some Classes Like >
+                <ul>
+                <li>Impossible To Pass 305</li>
+                <li>Creative 101</li>
+            </ul></p>
+             {% endif %}
+            </ul>
 
-    </div>
-    <div class="col-md-4 well right">
-        <label class="index-class-header">
-            Explore
-        </label>
-        <ul>
-        {% if the_classes %}
-            {% for c in the_classes %}
-            <li><a href="/{{c.user_creator.username}}/{{c.name}}">{{c.name}}</a></li>
-            {% endfor %}
-        {% endif %}
-        </ul>
+        </div>
+        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-6 well right">
+            <label class="index-class-header">
+                Explore
+            </label>
+            <ul>
+            {% if the_classes %}
+                {% for c in the_classes %}
+                <li><a href="/{{c.user_creator.username}}/{{c.name}}">{{c.name}}</a></li>
+                {% endfor %}
+            {% endif %}
+            </ul>
+        </div>
     </div>
 </div>
 {% endblock %}

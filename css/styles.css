@@ -1,43 +1,89 @@
 <style>
 
+
 #front-page-div {
     margin: auto;
-    height: 250px;
 }
 
-#front-page-text {
-    text-align: center;
-    vertical-align: middle;
-    line-height: 230px;
-    bottom: 0px;
+.item-inline {
+    display: inline;
 
 }
 
 #pic-text-div {
     border: 1px solid;
     border-radius: 4px;
-    height: 260px;
-    width: 665px;
+    height: 100%;
 }
 
-#front-page-pic-div {
-    float: right
-    height: 240px;
-    width: 240px;
+
+#front-page-text {
+    text-align: center;
+    vertical-align: middle;
+    bottom: 0px;
 }
+
+@media (min-width: 0px) {
+    #front-page-pic-div {
+        float: right
+        height: 160px;
+        width: 160px;
+    }
+
+    #front-page-div {
+        height: 180px;
+    }
+
+    #font-page-pic {
+        width: 160px;
+        height: 160px;
+    }
+
+    #front-page-text {
+        font-size: 28px;
+        line-height: 160px;
+
+    }
+}
+
+@media (min-width: 995px) {
+
+    #front-page-div {
+        height: 250px;
+    }
+
+    #front-page-pic-div {
+        float: right
+        height: 240px;
+        width: 240px;
+    }
+
+    #font-page-pic {
+        width: 240px;
+        height: 240px;
+    }
+
+    #front-page-text {
+        font-size: 43px;
+        line-height: 230px;
+    }
+}
+
+
 
 #front-page-pic {
-    width: 240px;
-    height: 240px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 #nav-override {
-    padding-bottom: 12px;
+    padding-bottom: 0px;
+    display: inline;
 }
 
+
 #body-content {
+    margin-top: 5px;
     overflow:hidden;
 }
 

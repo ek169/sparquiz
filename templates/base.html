@@ -20,28 +20,26 @@
 </head>
 <body>
 
-<nav class="navbar navbar-toggleable-md navbar-inverse bg-faded navbar-fixed-top" id="nav-override">
-    <div class="navbar-header">
+<nav class="navbar navbar-inverse bg-faded navbar-fixed-top col-lg-12 col-md-12 col-sm-12 col-xs-12" id="nav-override">
+    <div class="navbar-header hidden-xs">
         <a href="/" class="navbar-brand">Sparquiz</a>
     </div>
     <div class="container-fluid">
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-left">
-                {% if current_user %}
-                <li role="presentation" class="{{class_active}}"><a href="/{{current_user.username}}">My Classes</a></li>
-                <li role="presentation"><a href="/logout"> Logout</a></li>
-                {% else %}
-                <li role="presentation" class="{{login_active}}"><a href="/login"> Login</a></li>
-                <li role="presentation" class="{{sign_up_active}}"><a href="/signup"> Sign Up</a></li>
-                {% endif %}
-            </ul>
-        </div>
+        <ul class="nav navbar-nav">
+            {% if current_user %}
+            <li role="presentation" class="{{class_active}} col-lg-7 col-md-7 col-sm-7 col-xs-7"><a href="/{{current_user.username}}">My Classes</a></li>
+            <li role="presentation" class="col-lg-5 col-md-5 col-sm-5 col-xs-5"><a href="/logout"> Logout</a></li>
+            {% else %}
+            <li role="presentation" class="{{login_active}} col-lg-5 col-md-5 col-sm-5 col-xs-5"><a href="/login">Login</a></li>
+            <li role="presentation" class="{{sign_up_active}} col-lg-7 col-md-7 col-sm-7 col-xs-7"><a href="/signup">Sign Up</a></li>
+            {% endif %}
+        </ul>
     </div>
 </nav>
 <div class="container-fluid">
     <div class="row">
         {% if current_user %}
-        <div class="sidebar col-md-2">
+        <div class="sidebar col-lg-2 col-md-2 col-sm-2 col-xs-4">
             <ul class="nav nav-stacked affix">
                 <li><a href="/">Recent Activity</a></li>
                 <li class="hover"><a href="/{{current_user.username}}">Classes</a></li>
@@ -77,7 +75,7 @@
             </ul>
         </div>
         {% else %}
-        <div id="not-logged" class="sidebar col-md-2">
+        <div id="not-logged" class="sidebar col-lg-2 col-md-2 col-sm-3 col-xs-4">
             <div class="well">
                 <h4 class="h4">Find Your Classes</h4>
                 <span class="glyphicon glyphicon-arrow-down"></span>
@@ -98,14 +96,14 @@
             </div>
         </div>
         {% endif %}
-        <div id="body-content" class="col-md-8">
+        <div id="body-content" class="col-lg-8 col-md-8 col-sm-9 col-xs-8">
             <h1 class="page-header"><a href="#">{{page_title}}</a></h1>
             {% block content %}
 
             {% endblock %}
         </div>
         <div class="sidebar col-md-2 pull-right">
-            <div id="right-side-bar" class="col-md-2 affix">
+            <div id="right-side-bar" class="col-lg-2 col-md-2 hidden-sm hidden-xs affix">
                 {% if current_user %}
                 <ul class="nav nav-stacked">
                     <li>
